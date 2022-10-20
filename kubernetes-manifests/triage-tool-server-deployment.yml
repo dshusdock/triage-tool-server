@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: triage-tool-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: server
+  template:
+    metadata:
+      labels:
+        component: server
+    spec:
+      containers:
+        - name: server
+          image: dshusdock/ple-triage-server:prod1
+          ports:
+            - containerPort: 3001
+          env:
+          # Define the environment variable
+            - name: DB_DNS_NAME                                    
+              valueFrom:
+                configMapKeyRef:
+                  name: ple-triage-srvr-cm           
+                  key: DB_DNS_NAME 
+            - name: DB_PORT                                
+              valueFrom:
+                configMapKeyRef:
+                  name: ple-triage-srvr-cm           
+                  key: DB_PORT 
+          volumeMounts:
+            - name: allicat
+              mountPath: "/mnt/allicatnasn1/allicat_inactive"
+              readOnly: false
+            - name: config
+              mountPath: "/config"
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: ple-triage-srvr-cm
+        - name: allicat
+          hostPath:
+            path: /mnt/allicatnasn1/allicat_inactive
+            type: Directory
+
+              
