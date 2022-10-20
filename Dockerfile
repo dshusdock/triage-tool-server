@@ -2,9 +2,9 @@ FROM node:alpine
 
 WORKDIR /app
 RUN apk add --no-cache nfs-utils rpcbind
-RUN npm install -g npm@7.22.0
+RUN npm install -g npm@8.15.0
 COPY package.json .
-RUN npm install --force
+RUN npm install
 COPY . .
 RUN npm install -g typescript
 RUN tsc
