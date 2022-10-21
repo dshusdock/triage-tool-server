@@ -1,0 +1,15 @@
+FROM node:16.17.0
+
+WORKDIR /home/triage-tool-server
+#RUN apk add --no-cache nfs-utils rpcbind
+RUN npm install -g npm@8.15.0
+COPY package.json .
+RUN npm install
+COPY . .
+RUN npm install -g typescript
+RUN tsc
+EXPOSE 3001
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+#CMD ["npm", "run", "start:dock"]
+#CMD ["npm", "run", "start:debug"]
+#CMD ["npm", "start"]
