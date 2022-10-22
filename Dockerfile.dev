@@ -1,17 +1,8 @@
 FROM node:16.17.0
-
-WORKDIR /home/triage-tool-server
-#RUN apk add --no-cache nfs-utils rpcbind
+WORKDIR /home/some_project_name
+RUN apt-get update
 RUN npm install -g npm@8.15.0
-COPY package.json .
-RUN npm install
 RUN npm install -g prettier
 RUN npm i -g @nestjs/cli
-COPY . .
 RUN npm install -g typescript
-RUN tsc
-EXPOSE 3001
 ENTRYPOINT ["tail", "-f", "/dev/null"]
-#CMD ["npm", "run", "start:dock"]
-#CMD ["npm", "run", "start:debug"]
-#CMD ["npm", "start"]
