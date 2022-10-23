@@ -1,0 +1,16 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+metadata:
+  name: triage-tool-server
+build:
+  artifacts:
+    - image: dshusdock/ple-triage-server
+      docker:
+        dockerfile: Dockerfile
+  tagPolicy:
+    sha256: {}
+deploy:
+  kubectl:
+    manifests:
+      - kubernetes-manifests/triage-tool-server-cluster-ip-service.yml
+      - kubernetes-manifests/triage-tool-server-deployment.yml

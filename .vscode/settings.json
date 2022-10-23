@@ -18,5 +18,8 @@
         "titleBar.inactiveBackground": "#9f5b1b99",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.remoteColor": "#9f5b1b"
+    "peacock.remoteColor": "#9f5b1b",
+    "vs-kubernetes": {
+        "disable-linters": ["resource-limits"],
+    }
 }

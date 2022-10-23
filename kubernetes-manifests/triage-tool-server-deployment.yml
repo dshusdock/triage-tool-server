@@ -15,34 +15,16 @@ spec:
       containers:
         - name: server
           image: dshusdock/ple-triage-server:prod1
+          # Added resources (resoource limits) to quiet down the linter
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+          #############################################################
           ports:
             - containerPort: 3001
-          env:
-          # Define the environment variable
-            - name: DB_DNS_NAME                                    
-              valueFrom:
-                configMapKeyRef:
-                  name: ple-triage-srvr-cm           
-                  key: DB_DNS_NAME 
-            - name: DB_PORT                                
-              valueFrom:
-                configMapKeyRef:
-                  name: ple-triage-srvr-cm           
-                  key: DB_PORT 
-          volumeMounts:
-            - name: allicat
-              mountPath: "/mnt/allicatnasn1/allicat_inactive"
-              readOnly: false
-            - name: config
-              mountPath: "/config"
-              readOnly: true
-      volumes:
-        - name: config
-          configMap:
-            name: ple-triage-srvr-cm
-        - name: allicat
-          hostPath:
-            path: /mnt/allicatnasn1/allicat_inactive
-            type: Directory
 
               
